@@ -1,15 +1,18 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import TextInput from '../TextInput/TextInput';
 import Button from '../Button/Button';
+import { addCard } from '../../redux/store';
 
 const CardForm = (props) => {
+  const dispatch = useDispatch();
   const [title, setTitle] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title.trim()) return;
 
-    props.action({ title }, props.columnId);
+    dispatch(addCard({ title: title.trim(), columnId: props.columnId }));
     setTitle('');
   };
 

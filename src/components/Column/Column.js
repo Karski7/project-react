@@ -1,8 +1,15 @@
+import { shallowEqual, useSelector } from 'react-redux';
 import styles from './Column.module.scss';
 import Card from '../Card/Card';
 import CardForm from '../CardForm/CardForm';
+import { getFilteredCards } from '../../redux/store';
 
 const Column = (props) => {
+  const cards = useSelector(
+    (state) => getFilteredCards(state, props.id),
+    shallowEqual
+  );
+
   return (
     <article className={styles.column}>
       <h2 className={styles.title}>
@@ -11,12 +18,12 @@ const Column = (props) => {
       </h2>
 
       <ul className={styles.cards}>
-        {props.cards.map((card) => (
+        {cards.map((card) => (
           <Card key={card.id} title={card.title} />
         ))}
       </ul>
 
-      <CardForm columnId={props.id} action={props.addCard} />
+      <CardForm columnId={props.id} />
     </article>
   );
 };
