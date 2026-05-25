@@ -2,7 +2,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import styles from './Column.module.scss';
 import Card from '../Card/Card';
 import CardForm from '../CardForm/CardForm';
-import { getFilteredCards } from '../../redux/store';
+import { getFilteredCards } from '../../redux/cardsRedux';
 
 const Column = (props) => {
   const cards = useSelector(
@@ -19,7 +19,7 @@ const Column = (props) => {
 
       <ul className={styles.cards}>
         {cards.map((card) => (
-          <Card key={card.id} title={card.title} />
+          <Card key={card.id} {...card} />
         ))}
       </ul>
 
